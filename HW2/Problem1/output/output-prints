@@ -8,3 +8,10 @@ Calculations started
 Calculations done
 hist plotted
 110.10894775934322 GeV
+
+
+##About Hist##
+
+Not sure why frequencies in the histogram are so low, I did try changing bin size.
+
+Notes: the peak bin in the histogram is near 100GeV
