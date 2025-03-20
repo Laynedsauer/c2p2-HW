@@ -11,7 +11,8 @@ hist plotted
 
 
 ##About Hist##
+Accidentally used the .root file for problem 2, when I tried to use the other file, the calculation of the muon pair masses blew up giving errors. 
+when I limited the number of muons, the graph looked similar with a similar peak.
 
-Not sure why frequencies in the histogram are so low, I did try changing bin size.
 
-Notes: the peak bin in the histogram is near 100GeV
+Notes: the peak bin in the histogram is near 100GeV, I coudln't code in to find peak of histogram
