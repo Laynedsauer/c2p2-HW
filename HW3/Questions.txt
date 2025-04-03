@@ -136,5 +136,30 @@ the AF to your local machine, just a thought 👀)
 
 
 
+3. Once you have these, using tree->SetBasketSize(X), set the size of the basket buffer to values in this set: {4, 8, 16,
+32, 64, 128, 256, 512, 1024} [kB] and take the corresponding compression factors of an individual branch (You can
+obtain this a couple ways, within the script or after the .root ﬁle is written) After this is written, plot the compression
+factors according to the basket sizes.
+
+            I did this manually, setting the basketsize and writing down the compression factor. I then plotted them in python with outputs labeled                                    linearpvxcompressions.png and logvpxcompressions.png  (all branch data types was float)
+
+a.Do this ﬁrst with only random ﬂoating point numbers. After you get this, then you can ﬁll the branches with (½
+easily-compressible and ½ difﬁcult-to-compress) numbers and see how that changes things.
+
+            I'm not sure how to have a branch with different data types, but I changed just vint to a int type, noticed no change, 
+            and also changed all of them to int and noticed no change. I'm not sure why this is because in problem one, when autoflush was enabled, 
+            changing to int types had a huge impact on the compression factor.
+
+b. What do you notice with the smaller basket sizes? The larger ones?
+
+            As basket size is increased, compression factor increases with diminishing returns
+
+
+c. Do the benchmarks tell us anything useful?
+
+            
+
+
+
 
 
