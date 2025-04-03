@@ -1,1 +1,54 @@
+1. How might mixing the baskets with different kinds of data affect compression of the data upon filling the tree and saving
+to file? Does this have an effect with the overall disk usage or CPU walltime? 
 
+
+            I'm not sure what mixing baskets of different data types means, but I do notice that vint, 
+            of type vector<int> has a much higher compression factor compared to the other branches, of type vector<float>.
+            
+            When running readROOTFile, this is the output:
+            #######################################################################################################################################
+            
+            Warning in <UnknownClass::SetDisplay>: DISPLAY not set, setting it to 217.180.232.116:0.0
+            
+            <==== Flush Setting: @ 0====>
+            
+            Info in <TTreePerfStats::SaveAs>: ROOT file stats_1000000_0_50.root has been created
+            LOOP [read()] iter = 9, i = 990000 / 1000000
+            Disk Mean = 0.158448 and RMS/sqrt(N) = 0.0213511
+            read_hvector: Real Time =  38.23 seconds Cpu Time =  36.84 seconds
+            
+            <==== Flush Setting: @ -30000000====>
+            
+            Info in <TTreePerfStats::SaveAs>: ROOT file stats_1000000_-30000000_50.root has been created
+            LOOP [read()] iter = 9, i = 990000 / 1000000
+            Disk Mean = 0.0952731 and RMS/sqrt(N) = 0.00154638
+            read_hvector: Real Time =  36.51 seconds Cpu Time =  35.29 seconds
+            
+            <==== Flush Setting: @ -1000000====>
+            
+            Info in <TTreePerfStats::SaveAs>: ROOT file stats_1000000_-1000000_50.root has been created
+            LOOP [read()] iter = 9, i = 990000 / 1000000
+            Disk Mean = 0.0495764 and RMS/sqrt(N) = 0.000908518
+            read_hvector: Real Time =  34.57 seconds Cpu Time =  33.53 seconds
+            
+            <==== Flush Setting: @ 10000====>
+            
+            Info in <TTreePerfStats::SaveAs>: ROOT file stats_1000000_10000_50.root has been created
+            LOOP [read()] iter = 9, i = 990000 / 1000000
+            Disk Mean = 0.0636711 and RMS/sqrt(N) = 0.000395011
+            read_hvector: Real Time =  34.82 seconds Cpu Time =  33.78 seconds
+            
+            <==== Flush Setting: @ 100====>
+            
+            Info in <TTreePerfStats::SaveAs>: ROOT file stats_1000000_100_50.root has been created
+            LOOP [read()] iter = 9, i = 990000 / 1000000
+            Disk Mean = 0.0654954 and RMS/sqrt(N) = 0.000995357
+            read_hvector: Real Time =  37.30 seconds Cpu Time =  36.20 seconds
+            
+            #######################################################################################################################################
+            
+            I initially thought that the more times the data is flushed, smaller flush either in bytes or entries, the larger the disk usage (disk mean?). 
+            This is true to an extent looking at the flush>0 outputs, but with almost no change from 100 entries to 1,000 entries. This trend isn't true looking at the flush<0 outputs, with the larger flush having a large Disk mean.
+            
+            
+            There seems to be no affect on Real or CPU Time with flush settings.
