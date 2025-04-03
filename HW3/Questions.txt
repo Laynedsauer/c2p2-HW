@@ -2,9 +2,80 @@
 to file? Does this have an effect with the overall disk usage or CPU walltime? 
 
 
-            I'm not sure what mixing baskets of different data types means, but I do notice that vint, 
-            of type vector<int> has a much higher compression factor compared to the other branches, of type vector<float>.
-            
+            I'm not sure what mixing baskets of different data types means, but I do notice that changing vint from a vector<int> type to vector<float> type had no 
+            change on compression factor. So changing data types, not mixing, has no affect on compression.
+
+            However, if I changed all branches to int's, the compression factor for all was much higher, with a total Tree compression factor of ~5.6.
+
+            If this is what mixing the baskets with different kinds of data means, then mixing data types makes compression much worse? Although having all floats does not 
+            have the same affect.
+
+
+
+
+            All float branches output
+
+
+
+            Flush = 100 and N = 1000000 and vec size = 50
+            LOOP [write()]: 99% Complete******************************************************************************
+            *Tree    :tvec      : Tree with vectors                                      *
+            *Entries :  1000000 : Total =       663119983 bytes  File  Size =  459313720 *
+            *        :          : Tree compression factor =   1.44                       *
+            ******************************************************************************
+            *Br    0 :vpx       : vector<float>                                          *
+            *Entries :  1000000 : Total  Size=  113023897 bytes  File Size  =  100603242 *
+            *Baskets :    10250 : Basket Size=      12800 bytes  Compression=   1.12     *
+            *............................................................................*
+            *Br    1 :vpy       : vector<float>                                          *
+            *Entries :  1000000 : Total  Size=  113023897 bytes  File Size  =  100601567 *
+            *Baskets :    10250 : Basket Size=      12800 bytes  Compression=   1.12     *
+            *............................................................................*
+            *Br    2 :vpz       : vector<float>                                          *
+            *Entries :  1000000 : Total  Size=  113023897 bytes  File Size  =   97856595 *
+            *Baskets :    10250 : Basket Size=      12800 bytes  Compression=   1.15     *
+            *............................................................................*
+            *Br    3 :vpt       : vector<float>                                          *
+            *Entries :  1000000 : Total  Size=  211013515 bytes  File Size  =  114542084 *
+            *Baskets :    10363 : Basket Size=      23552 bytes  Compression=   1.84     *
+            *............................................................................*
+            *Br    4 :vint      : vector<float>                                          *
+            *Entries :  1000000 : Total  Size=  113034151 bytes  File Size  =   45270049 *
+            *Baskets :    10250 : Basket Size=      12800 bytes  Compression=   2.49     *
+            *............................................................................*
+
+
+            All int branches output
+
+
+
+            Flush = 100 and N = 1000000 and vec size = 50
+            LOOP [write()]: 0% Complete******************************************************************************
+            *Tree    :tvec      : Tree with vectors                                      *
+            *Entries :  1000000 : Total =       667080586 bytes  File  Size =  138653445 *
+            *        :          : Tree compression factor =   4.82                       *
+            ******************************************************************************
+            *Br    0 :vpx       : vector<int>                                            *
+            *Entries :  1000000 : Total  Size=  113787303 bytes  File Size  =   26122749 *
+            *Baskets :    17625 : Basket Size=      11264 bytes  Compression=   4.34     *
+            *............................................................................*
+            *Br    1 :vpy       : vector<int>                                            *
+            *Entries :  1000000 : Total  Size=  113787303 bytes  File Size  =   26119693 *
+            *Baskets :    17625 : Basket Size=      11264 bytes  Compression=   4.34     *
+            *............................................................................*
+            *Br    2 :vpz       : vector<int>                                            *
+            *Entries :  1000000 : Total  Size=  113787303 bytes  File Size  =   11194311 *
+            *Baskets :    17625 : Basket Size=      11264 bytes  Compression=  10.13     *
+            *............................................................................*
+            *Br    3 :vpt       : vector<int>                                            *
+            *Entries :  1000000 : Total  Size=  211913129 bytes  File Size  =   31420892 *
+            *Baskets :    18964 : Basket Size=      19968 bytes  Compression=   6.73     *
+            *............................................................................*
+            *Br    4 :vint      : vector<int>                                            *
+            *Entries :  1000000 : Total  Size=  113804932 bytes  File Size  =   43090649 *
+            *Baskets :    17625 : Basket Size=      11264 bytes  Compression=   2.63     *
+            *............................................................................*
+                        
             When running readROOTFile, this is the output:
             #######################################################################################################################################
             
@@ -48,7 +119,7 @@ to file? Does this have an effect with the overall disk usage or CPU walltime?
             #######################################################################################################################################
             
             I initially thought that the more times the data is flushed, smaller flush either in bytes or entries, the larger the disk usage (disk mean?). 
-            This is true to an extent looking at the flush>0 outputs, but with almost no change from 100 entries to 1,000 entries. This trend isn't true looking at the flush<0 outputs, with the larger flush having a large Disk mean.
+            This is true to an extent looking at the flush>0 outputs, but with almost no change from 100 entries to 1,000 entries. This trend isn't true looking at the                  flush<0 outputs, with the larger flush having a large Disk mean.
             
             
             There seems to be no affect on Real or CPU Time with flush settings.
