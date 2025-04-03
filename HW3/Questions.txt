@@ -168,7 +168,7 @@ c. Do the benchmarks tell us anything useful?
 Day 2
 
 
-            I couldn't get almost anything to work from this, but reading Jack's file in the athena gitlab, named ReadExampleElectron. My plan was to implement the write out decoration
+            I couldn't get almost anything to work from this, but reading Jack's file in the athena gitlab, named ReadExampleElectron, I could see how to read out decorations I think. My plan was to implement the write out decoration
             names part of this file to the writeROOTFile script. I don't think this is the correct approach, but I couldn't get far enough to try.
 
             
