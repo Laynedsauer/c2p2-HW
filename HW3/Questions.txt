@@ -123,3 +123,18 @@ to file? Does this have an effect with the overall disk usage or CPU walltime?
             
             
             There seems to be no affect on Real or CPU Time with flush settings.
+
+
+
+
+
+2. Plot some histograms by calling back to the original hvector tutorial (you might want to use scp to move the plots from
+the AF to your local machine, just a thought 👀)
+
+            I plotted vpx as a histogram and the output is "histogram.png" Looks good!
+
+
+
+
+
+
