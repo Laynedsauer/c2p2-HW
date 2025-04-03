@@ -131,7 +131,7 @@ to file? Does this have an effect with the overall disk usage or CPU walltime?
 2. Plot some histograms by calling back to the original hvector tutorial (you might want to use scp to move the plots from
 the AF to your local machine, just a thought 👀)
 
-            I plotted vpx as a histogram and the output is "histogram.png" Looks good!
+            I plotted vpx as a histogram and the output is "histogram.png". Looks good!
 
 
 
@@ -157,6 +157,21 @@ b. What do you notice with the smaller basket sizes? The larger ones?
 
 c. Do the benchmarks tell us anything useful?
 
+            If the benchmarks are the table outputs from writeROOTFile, then this is what I used to check compression and more.
+
+
+
+
+
+
+
+Day 2
+
+
+            I couldn't get almost anything to work from this, but reading Jack's file in the athena gitlab, named ReadExampleElectron. My plan was to implement the write out decoration
+            names part of this file to the writeROOTFile script. I don't think this is the correct approach, but I couldn't get far enough to try.
+
+            
             
 
 
